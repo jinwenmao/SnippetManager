@@ -120,9 +120,11 @@ namespace SnippetManager
 
         private void Button_Click(object sender, EventArgs e)
         {
+            NameOf(new { this.btnSearch });
             switch (((Button)sender).Name)
             {
-                case nameof(this.btnSearch):
+                //case nameof(this.btnSearch):
+                case "btnSearch"://NameOf(new { this.btnSearch }):
                     if (_objBGWorker.IsBusy == true)
                     {
                         return;
@@ -138,7 +140,7 @@ namespace SnippetManager
 
                     break;
 
-                case nameof(this.btnDelete):
+                case "btnDelete"://nameof(this.btnDelete):
 
                     if (this.objTreeView.SelectedNode != null)
                     {
@@ -162,7 +164,7 @@ namespace SnippetManager
                     }
                     break;
 
-                case nameof(this.btnAdd):
+                case "btnAdd"://nameof(this.btnAdd):
                     if (this.IsEditing == false)
                     {
                         this.IsEditing = true;
@@ -170,7 +172,7 @@ namespace SnippetManager
                     }
                     break;
 
-                case nameof(this.btnSave):
+                case "btnSave"://nameof(this.btnSave):
                     if (this.IsEditing == true)
                     {
                         DialogResult objDialogResult;
@@ -198,6 +200,15 @@ namespace SnippetManager
                     break;
             }
 
+        }
+
+
+        /// <summary>
+        /// 利用匿名类型实现  参数t必须为匿名类型
+        /// </summary>
+        public static string NameOf<T>(T t) where T : class
+        {
+            return typeof(T).GetProperties().Select(s => s.Name).FirstOrDefault();
         }
 
         private void SaveSnippet()
@@ -448,6 +459,11 @@ namespace SnippetManager
         }
 
         #endregion
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+
+        }
 
     }
 }
